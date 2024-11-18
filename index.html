@@ -46,6 +46,20 @@
     </a>
   </div>
 
+  <script>
+    // Ensure video plays on mobile
+    document.addEventListener('DOMContentLoaded', function() {
+      const video = document.getElementById('backgroundVideo');
+      
+      // Force play on load
+      video.play().catch(error => {
+        console.log('Autoplay failed:', error);
+      });
+    });
+  </script>
+</body>
+</html>
+
 </body>
 </html>
 
