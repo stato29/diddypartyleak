@@ -4,64 +4,57 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Landing Page with Looping Video</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      background-color: black;
-      color: white;
-      font-family: 'Arial', sans-serif;
-    }
-
-    video {
+    #backgroundVideo {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
-      height: 56.25vh; /* 9:16 aspect ratio */
+      height: 100%;
       object-fit: cover;
-    }
-
-    h1 {
-      font-size: 2rem;
-      color: pink;
-      text-shadow: 0 0 10px pink, 0 0 20px pink, 0 0 30px pink;
-      margin-top: 20px;
-    }
-
-    a {
-      margin-top: 10px;
-      color: pink;
-      text-decoration: none;
-      font-size: 1.2rem;
-      text-shadow: 0 0 10px pink;
-    }
-
-    a:hover {
-      color: hotpink;
-      text-shadow: 0 0 20px hotpink;
+      z-index: -1;
     }
   </style>
 </head>
-<body>
-  <video id="backgroundVideo" autoplay loop muted>
+<body class="flex flex-col items-center justify-center min-h-screen bg-black text-white">
+
+  <!-- Video Background -->
+  <video id="backgroundVideo" autoplay loop muted playsinline>
     <source src="https://eu-central.storage.cloudconvert.com/tasks/eeafb6a8-ff80-4811-b37a-301f7cbc52dd/IMG_0.mp4?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=cloudconvert-production%2F20241118%2Ffra%2Fs3%2Faws4_request&X-Amz-Date=20241118T162200Z&X-Amz-Expires=86400&X-Amz-Signature=95b8fa3c9423f4e55086dac07ac3faedb50fcda447c073d53731c15e771d49c4&X-Amz-SignedHeaders=host&response-content-disposition=inline%3B%20filename%3D%22IMG_0.mp4%22&response-content-type=video%2Fmp4&x-id=GetObject" type="video/mp4">
     Your browser does not support the video tag.
   </video>
 
-  <h1>Glowing Pink Text Below Video</h1>
+ 
 
-  <a href="https://www.go-out.co/event/gooutcoilrodeothursday1?ref=a312e3a312" target="_blank">Visit Example</a>
+  <!-- Link -->
 
-  <script>
-    // Unmute video after page load
-    const video = document.getElementById('backgroundVideo');
-    video.muted = false;  // Unmute the video
-    video.play().catch(error => {
-      console.log('Video playback failed:', error);
-    });
-  </script>
+
+  <div class="relative z-10 mt-auto mb-6">
+    <h1 class="text-3xl md:text-5xl mb-20 ">
+        Ain't No Party Like a Diddy Party
+      </h1>
+    <a href="https://www.go-out.co/event/gooutcoilrodeothursday1?ref=a312e3a312" target="_blank"
+       class="flex items-center justify-center space-x-2 text-lg font-medium text-pink-400 hover:text-pink-600 transition">
+      <i class="fa fa-link"></i>
+      <span>THE RODEO</span>
+      <i class="fa fa-link"></i>
+    </a>
+
+
+
+    <style>
+
+        h1{
+            color: #fff;
+            font-size:25px;
+            text-shadow: 0 0 10px white, 0 0 20px white, 0 0 30px white;
+        }
+
+
+    </style>
+  </div>
+
 </body>
 </html>
