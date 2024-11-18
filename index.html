@@ -47,19 +47,31 @@
   </div>
 
   <script>
-    // Ensure video plays on mobile
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
       const video = document.getElementById('backgroundVideo');
       
-      // Force play on load
-      video.play().catch(error => {
-        console.log('Autoplay failed:', error);
+      // Attempt to play the video once the page has loaded
+      const playVideo = async () => {
+        try {
+          await video.play();
+          console.log("Video autoplayed successfully.");
+        } catch (error) {
+          console.log("Autoplay failed. User interaction may be required:", error);
+        }
+      };
+
+      // Retry playing if the initial attempt fails
+      playVideo();
+
+      // Handle user interaction to enable playback
+      document.body.addEventListener('click', () => {
+        if (video.paused) {
+          playVideo();
+        }
       });
     });
   </script>
 </body>
 </html>
 
-</body>
-</html>
 
