@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Landing Page with Background Image</title>
+  <title>Landing Page with Blurry Background</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <style>
@@ -17,31 +17,33 @@
       overflow-x: hidden;
     }
 
-    /* Background Image */
+    /* Background Styling */
     .background {
       background: url('https://d15q6k8l9pfut7.cloudfront.net/events/671e77cd54b6e89d294463071730049997730_coverImage.jpg') no-repeat center center;
       background-size: cover;
-      height: 100vh; /* Full viewport height */
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      height: 100%;
+      z-index: -1;
+      transition: filter 0.5s ease;
     }
 
-    /* Fullscreen adjustments for phones with 9:16 aspect ratio */
-    @media screen and (max-aspect-ratio: 9/16) {
-      .background {
-        background-size: contain; /* Ensures the full image is shown */
-      }
+    .background.blurry {
+      filter: blur(5px);
     }
 
-    /* Text and Link Container */
+    /* Content Container */
     .content {
-      text-align: center;
-      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       opacity: 0;
-      transform: translateY(20px);
+      transform: translateY(100px);
       transition: opacity 0.5s ease, transform 0.5s ease;
+      margin-top: 120vh; /* Content appears after scrolling */
     }
 
     .content.visible {
@@ -53,6 +55,7 @@
       font-size: 1.5rem;
       text-shadow: 0 0 10px white, 0 0 20px white, 0 0 30px white;
       margin-bottom: 20px;
+      text-align: center;
     }
 
     a {
@@ -65,55 +68,48 @@
     a:hover {
       color: #ff1493;
     }
-
-    /* Blurry Background */
-    .background.blurry {
-      filter: blur(5px);
-    }
-
-    /* Add padding for scrolling */
-    .scroll-content {
-      min-height: 100vh; /* Full viewport height */
-    }
   </style>
 </head>
 <body>
 
   <!-- Background -->
-  <div class="background" id="background">
-    <div class="content" id="content">
-      <h1>
-        הסתקרנתם לראות תמונות של ג׳סטין ביבר מסטול? הגעתם למקום הנכון<br>
-        אמנם אצלנו אין ג׳סטין ביבר אבל תראו הרבה מאוד סטלה ברחבה<br>
-        סתם בדיחות בצד, מסיבות רודאו ראפ, אפרוביטס ואר אנד בי<br>
-        חמישי הבא 28.11 בתל אביב<br>
-        פרטים וכרטיסים בקישור פה למטה⬇️
-      </h1>
-      <a href="https://www.go-out.co/event/gooutcoilrodeothursday1?ref=a312e3a312" target="_blank">
-        THE RODEO
-      </a>
-    </div>
+  <div class="background" id="background"></div>
+
+  <!-- Content -->
+  <div class="content" id="content">
+    <h1>
+      הסתקרנתם לראות תמונות של ג׳סטין ביבר מסטול?
+     הגעתם למקום הנכון
+      <br>
+      אמנם אצלנו אין ג׳סטין ביבר אבל תראו הרבה מאוד סטלה ברחבה<br>
+      סתם בדיחות בצד 
+      מסיבות רודאו ראפ, אפרוביטס ואר אנד בי<br>
+      חמישי הבא 28.11 בתל אביב<br>
+      פרטים וכרטיסים בקישור פה למטה⬇️
+    </h1>
+    <a href="https://www.go-out.co/event/gooutcoilrodeothursday1?ref=a312e3a312" target="_blank">
+      THE RODEO
+    </a>
   </div>
 
-  <!-- Scrolling Content -->
-  <div class="scroll-content"></div>
-
   <script>
-    // Handle blur effect and content visibility
+    // Get references to elements
+    const background = document.getElementById('background');
+    const content = document.getElementById('content');
+
+    // Add scroll event listener
     window.addEventListener('scroll', () => {
-      const background = document.getElementById('background');
-      const content = document.getElementById('content');
       const scrollY = window.scrollY;
 
-      // Add blur effect as user scrolls
+      // Apply blur to background as user scrolls
       if (scrollY > 50) {
         background.classList.add('blurry');
       } else {
         background.classList.remove('blurry');
       }
 
-      // Show content when scrolling begins
-      const triggerPoint = 30;
+      // Show content when scrolling halfway down
+      const triggerPoint = window.innerHeight / 1.5; // Adjust as needed
       if (scrollY > triggerPoint) {
         content.classList.add('visible');
       } else {
@@ -121,6 +117,7 @@
       }
     });
   </script>
+
 </body>
 </html>
 
