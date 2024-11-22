@@ -8,36 +8,39 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <style>
     /* General Styling */
-    body {
+    body, html {
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
       color: white;
+      height: 100%;
       overflow-x: hidden;
     }
 
-    /* Background Image Styling */
+    /* Background Image */
     .background {
-      background: url('https://d15q6k8l9pfut7.cloudfront.net/events/671e77cd54b6e89d294463071730049997730_coverImage.jpg') no-repeat center center fixed;
+      background: url('https://d15q6k8l9pfut7.cloudfront.net/events/671e77cd54b6e89d294463071730049997730_coverImage.jpg') no-repeat center center;
       background-size: cover;
-      position: fixed;
-      top: 0;
-      left: 0;
+      height: 100vh; /* Full viewport height */
       width: 100%;
-      height: 100%;
-      z-index: -1;
-      transition: filter 0.5s ease;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
 
-    /* Content Container */
+    /* Fullscreen adjustments for phones with 9:16 aspect ratio */
+    @media screen and (max-aspect-ratio: 9/16) {
+      .background {
+        background-size: contain; /* Ensures the full image is shown */
+      }
+    }
+
+    /* Text and Link Container */
     .content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 200vh; /* To enable scrolling */
+      text-align: center;
+      padding: 20px;
       opacity: 0;
-      transform: translateY(100px);
+      transform: translateY(20px);
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
 
@@ -46,15 +49,12 @@
       transform: translateY(0);
     }
 
-    /* Text Styling */
     h1 {
-      text-align: center;
-      font-size: 15px;
+      font-size: 1.5rem;
       text-shadow: 0 0 10px white, 0 0 20px white, 0 0 30px white;
-      margin-bottom: 30px;
+      margin-bottom: 20px;
     }
 
-    /* Link Styling */
     a {
       text-decoration: none;
       color: #ff69b4;
@@ -66,51 +66,54 @@
       color: #ff1493;
     }
 
-    /* Blurry Background Effect */
+    /* Blurry Background */
     .background.blurry {
       filter: blur(5px);
+    }
+
+    /* Add padding for scrolling */
+    .scroll-content {
+      min-height: 100vh; /* Full viewport height */
     }
   </style>
 </head>
 <body>
 
   <!-- Background -->
-  <div class="background" id="background"></div>
-
-  <!-- Content -->
-  <div class="content" id="content">
-    <h1>
-      הסתקרנתם לראות תמונות של ג׳סטין ביבר מסטול?
-      הגעתם למקום הנכון<br>
-      אמנם אצלנו אין ג׳סטין ביבר אבל תראו הרבה מאוד סטלה ברחבה<br>
-      סתם בדיחות בצד,
-      מסיבות רודאו ראפ, אפרוביטס ואר אנד בי<br>
-      חמישי הבא 28.11 בתל אביב<br>
-      פרטים וכרטיסים בקישור פה למטה⬇️
-    </h1>
-    <a href="https://www.go-out.co/event/gooutcoilrodeothursday1?ref=a312e3a312" target="_blank">
-      THE RODEO
-    </a>
+  <div class="background" id="background">
+    <div class="content" id="content">
+      <h1>
+        הסתקרנתם לראות תמונות של ג׳סטין ביבר מסטול? הגעתם למקום הנכון<br>
+        אמנם אצלנו אין ג׳סטין ביבר אבל תראו הרבה מאוד סטלה ברחבה<br>
+        סתם בדיחות בצד, מסיבות רודאו ראפ, אפרוביטס ואר אנד בי<br>
+        חמישי הבא 28.11 בתל אביב<br>
+        פרטים וכרטיסים בקישור פה למטה⬇️
+      </h1>
+      <a href="https://www.go-out.co/event/gooutcoilrodeothursday1?ref=a312e3a312" target="_blank">
+        THE RODEO
+      </a>
+    </div>
   </div>
 
-  <script>
-    // Get references to the background and content elements
-    const background = document.getElementById('background');
-    const content = document.getElementById('content');
+  <!-- Scrolling Content -->
+  <div class="scroll-content"></div>
 
-    // Add scroll event listener
+  <script>
+    // Handle blur effect and content visibility
     window.addEventListener('scroll', () => {
+      const background = document.getElementById('background');
+      const content = document.getElementById('content');
       const scrollY = window.scrollY;
 
-      // Add blur effect to background as user scrolls
+      // Add blur effect as user scrolls
       if (scrollY > 50) {
         background.classList.add('blurry');
       } else {
         background.classList.remove('blurry');
       }
 
-      // Fade in the content when user scrolls halfway down
-      const triggerPoint = window.innerHeight / 2;
+      // Show content when scrolling begins
+      const triggerPoint = 30;
       if (scrollY > triggerPoint) {
         content.classList.add('visible');
       } else {
@@ -118,9 +121,9 @@
       }
     });
   </script>
-
 </body>
 </html>
+
 
 </html>
 
