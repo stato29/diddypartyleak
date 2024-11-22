@@ -7,42 +7,121 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <style>
-    /* Background Image Styling */
+    /* General Styling */
     body {
-      background: url('https://d15q6k8l9pfut7.cloudfront.net/events/671e77cd54b6e89d294463071730049997730_coverImage.jpg') no-repeat center center fixed;
-      background-size: cover;
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
       color: white;
+      overflow-x: hidden;
     }
 
+    /* Background Image Styling */
+    .background {
+      background: url('https://d15q6k8l9pfut7.cloudfront.net/events/671e77cd54b6e89d294463071730049997730_coverImage.jpg') no-repeat center center fixed;
+      background-size: cover;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      transition: filter 0.5s ease;
+    }
+
+    /* Content Container */
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 200vh; /* To enable scrolling */
+      opacity: 0;
+      transform: translateY(100px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .content.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Text Styling */
     h1 {
-      color: #fff;
+      text-align: center;
       font-size: 15px;
       text-shadow: 0 0 10px white, 0 0 20px white, 0 0 30px white;
+      margin-bottom: 30px;
+    }
+
+    /* Link Styling */
+    a {
+      text-decoration: none;
+      color: #ff69b4;
+      font-size: 20px;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: #ff1493;
+    }
+
+    /* Blurry Background Effect */
+    .background.blurry {
+      filter: blur(5px);
     }
   </style>
 </head>
-<body class="flex flex-col items-center justify-center min-h-screen">
+<body>
+
+  <!-- Background -->
+  <div class="background" id="background"></div>
 
   <!-- Content -->
-  <div class="relative z-10 mt-auto mb-6 text-center">
-    <h1 class="text-3xl md:text-5xl mb-20">
-הסתקרנתם לראות תמונות של ג׳סטין ביבר מסטול? הגעתם למקום הנכון
-אמנם אצלנו אין ג׳סטין ביבר אבל תראו הרבה מאוד סטלה ברחבה 
-סתם בדיחות בצד, מסיבות רודאו ראפ, אפרוביטס ואר אנד בי
-חמישי הבא 28.11 בתל אביב
-פרטים וכרטיסים בקישור פה למטה⬇️    </h1>
-    <a href="https://www.go-out.co/event/gooutcoilrodeothursday1?ref=a312e3a312" target="_blank"
-       class="flex items-center justify-center space-x-2 text-lg font-medium text-pink-400 hover:text-pink-600 transition">
-      <i class="fa fa-link"></i>
-      <span>THE RODEO</span>
-      <i class="fa fa-link"></i>
+  <div class="content" id="content">
+    <h1>
+      הסתקרנתם לראות תמונות של ג׳סטין ביבר מסטול?
+      הגעתם למקום הנכון<br>
+      אמנם אצלנו אין ג׳סטין ביבר אבל תראו הרבה מאוד סטלה ברחבה<br>
+      סתם בדיחות בצד,
+      מסיבות רודאו ראפ, אפרוביטס ואר אנד בי<br>
+      חמישי הבא 28.11 בתל אביב<br>
+      פרטים וכרטיסים בקישור פה למטה⬇️
+    </h1>
+    <a href="https://www.go-out.co/event/gooutcoilrodeothursday1?ref=a312e3a312" target="_blank">
+      THE RODEO
     </a>
   </div>
 
+  <script>
+    // Get references to the background and content elements
+    const background = document.getElementById('background');
+    const content = document.getElementById('content');
+
+    // Add scroll event listener
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+
+      // Add blur effect to background as user scrolls
+      if (scrollY > 50) {
+        background.classList.add('blurry');
+      } else {
+        background.classList.remove('blurry');
+      }
+
+      // Fade in the content when user scrolls halfway down
+      const triggerPoint = window.innerHeight / 2;
+      if (scrollY > triggerPoint) {
+        content.classList.add('visible');
+      } else {
+        content.classList.remove('visible');
+      }
+    });
+  </script>
+
 </body>
+</html>
+
 </html>
 
 
