@@ -35,24 +35,20 @@
       filter: blur(0px);
     }
 
-    .background.blurry {
-      filter: blur(5px);
-    }
-
     /* Content Container */
     .content {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%) translateY(50px);
+      text-align: center;
       opacity: 0;
-      transform: translateY(100px);
-      transition: opacity 0.8s ease, transform 0.8s ease;
+      transition: opacity 0.5s ease, transform 0.5s ease;
     }
 
     .content.visible {
       opacity: 1;
-      transform: translateY(0);
+      transform: translate(-50%, -50%) translateY(0);
     }
 
     h1 {
@@ -110,19 +106,18 @@
       const blurValue = Math.min(scrollY / windowHeight * 5, 5); // Max blur of 5px
       background.style.filter = `blur(${blurValue}px)`;
 
-      // Show content when scrolling halfway down
-      const triggerPoint = windowHeight / 2; // Adjust trigger point for content visibility
-      if (scrollY > triggerPoint) {
-        content.classList.add('visible');
-      } else {
-        content.classList.remove('visible');
-      }
+      // Show content progressively as the user scrolls
+      const opacityValue = Math.min(scrollY / (windowHeight / 2), 1); // Fully visible by halfway down
+      content.style.opacity = opacityValue;
+
+      // Move content upwards as it becomes visible
+      const translateYValue = Math.max(50 - (scrollY / (windowHeight / 2)) * 50, 0); // Stop moving at 0px
+      content.style.transform = `translate(-50%, -50%) translateY(${translateYValue}px)`;
     });
   </script>
 
 </body>
 </html>
-
 
 </html>
 
